@@ -7,13 +7,7 @@ class Rpc {
       method: 'call',
     };
 
-    this.instanceAxios = axios.create();
-    this.instanceAxios.interceptors.response.use((response) => {
-      if (Object.prototype.hasOwnProperty.call(response.data, 'error')) {
-        return Promise.reject(response.data.error);
-      }
-      return response;
-    }, err => Promise.reject(err));
+    axios.defaults.withCredentials = true;
   }
 
   /**
@@ -25,7 +19,7 @@ class Rpc {
    * @returns {Promise}
    */
   __jsonrpc(url, params) {
-    return this.instanceAxios.post(url, {
+    return axios.post('http://localhost:4000' + url, {
       ...this._defaults,
       id: Math.floor(Math.random() * 1000 * 1000 * 1000),
       params,
