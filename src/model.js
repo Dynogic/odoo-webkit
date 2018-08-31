@@ -142,15 +142,15 @@ class Model extends BaseModel {
   /**
    * Saves the provided data in an existing db record
    *
-   * @param {Number|String} id identifier for the record to alter
+   * @param {Array} ids identifier for the records to alter
    * @param {Object} data field values to write into the record
    * @param {Object} options
    * @returns {Promise}
    */
-  write(id, data, options = {}) {
+  write(ids, data, options = {}) {
     return super.call({
       method: 'write',
-      args: [[id], data],
+      args: [ids, data],
       kwargs: { context: this.get_context() },
     });
   }
@@ -158,13 +158,13 @@ class Model extends BaseModel {
   /**
    * Deletes an existing record from the database
    *
-   * @param {Number|String} ids identifier of the record to delete
+   * @param {Number|String} id identifier of the record to delete
    * @returns {Promise}
    */
-  unlink(ids) {
+  unlink(id) {
     return super.call({
       method: 'unlink',
-      args: [ids],
+      args: [id],
       kwargs: { context: this.get_context() },
     });
   }
