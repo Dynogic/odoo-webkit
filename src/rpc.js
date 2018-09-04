@@ -19,7 +19,7 @@ class Rpc {
    * @returns {Promise}
    */
   __jsonrpc(url, params) {
-    return axios.post('http://localhost:4000' + url, {
+    return axios.post(`http://${window.location.hostname}:4000${url}`, {
       ...this._defaults,
       id: Math.floor(Math.random() * 1000 * 1000 * 1000),
       params,
