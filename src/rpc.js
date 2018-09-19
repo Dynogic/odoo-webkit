@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 class Rpc {
-  constructor() {
+  constructor(hostname, session) {
     this._defaults = {
       jsonrpc: '2.0',
       method: 'call',
     };
-
-    axios.defaults.withCredentials = true;
+    this.hostname = hostname;
+    this.session = session;
   }
 
   /**
@@ -19,11 +19,19 @@ class Rpc {
    * @returns {Promise}
    */
   __jsonrpc(url, params) {
-    return axios.post(`http://${window.location.hostname}:4000${url}`, {
+    let config = undefined;
+    if (this.session) {
+      config = {
+        headers: {
+          'Cookie': `session_id=${this.session}`
+        }
+      }
+    }
+    return axios.post(`${this.hostname}${url}`, {
       ...this._defaults,
       id: Math.floor(Math.random() * 1000 * 1000 * 1000),
       params,
-    });
+    }, config);
   }
 
   /**

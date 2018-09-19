@@ -2,7 +2,7 @@ import Rpc from './rpc';
 
 class Auth extends Rpc {
   constructor(...args) {
-    super(args);
+    super(...args);
   }
 
   /**

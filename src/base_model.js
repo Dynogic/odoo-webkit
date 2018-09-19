@@ -1,8 +1,8 @@
 import Rpc from './rpc';
 
 class BaseModel extends Rpc {
-  constructor(name) {
-    super();
+  constructor(config, name) {
+    super(config.hostname, config.session);
     this.name = name;
   }
 
